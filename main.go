@@ -176,6 +176,12 @@ func willMergeAtNextBlock(resp *Resp, terminalDifficulty *big.Int) bool {
 		"td":       totalDifficulty.String(),
 		"terminal": terminalDifficulty.String(),
 	}).Info("get diff and td")
+
+	if difficulty.Cmp(big.NewInt(0)) == 0 {
+		logrus.Info("merged")
+		return true
+	}
+
 	totalDifficulty.Add(totalDifficulty, difficulty)
 	totalDifficulty.Add(totalDifficulty, delta)
 
